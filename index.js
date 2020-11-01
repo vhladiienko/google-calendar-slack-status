@@ -61,8 +61,7 @@ app.post('/', (req, res, next) => {
   if (process.env.AM_PM === true) {
     status = `${status} from ${start.format('hh:mm')} to ${end.format('hh:mm A')} (${process.env.TIME_ZONE})`;
   } else {
-    // status = `${status} from ${start.format('HH:mm')} to ${end.format('HH:mm')} (${process.env.TIME_ZONE})`;
-    status = `DEBUG: ${JSON.stringify(req.body)}`;
+    status = `${status} from ${start.format('HH:mm')} to ${end.format('HH:mm')} (${process.env.TIME_ZONE})`;
   }
   let profile = JSON.stringify({
     "status_text": status,
