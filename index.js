@@ -58,15 +58,15 @@ app.post('/', (req, res, next) => {
     status = status.replace(awayToken, '').trim();
   }
   // set status
-  if (process.env.AM_PM) {
-    status = `${status} from ${start.format('hh:mm')} to ${end.format('hh:mm A')} ${process.env.TIME_ZONE}`;
+  if (process.env.AM_PM === true) {
+    status = `${status} from ${start.format('hh:mm')} to ${end.format('hh:mm A')} (${process.env.TIME_ZONE})`;
   } else {
-    status = `${status} from ${start.format('HH:mm')} to ${end.format('HH:mm')} (${process.env.TIME_ZONE})`;
+    status = `${status} from ${start.format('HH:mm')} to ${end.format('HH:mm')} (${process.env.TIME_ZONE}) ${end.unix()}`;
   }
   let profile = JSON.stringify({
     "status_text": status,
     "status_emoji": statusEmoji,
-    "status_expiration": end.utc().unix()
+    "status_expiration": end.unix()
   });
   console.log(profile);
   slack.users.profile.set({ token, profile });
